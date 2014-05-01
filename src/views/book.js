@@ -122,7 +122,9 @@ define([
             };
 
             if (!article.get("path") || !that.fs.exists(article.get("path"))) {
-                return dialogs.saveAs(article.get("title")+".md", that.fs.options.base)
+                var normall = node.require("normall");
+                    title = normall.filename(article.get("title"));
+                return dialogs.saveAs(title+".md", that.fs.options.base)
                 .then(function(path) {
                     if (!that.fs.isValidPath(path)) return Q.reject(new Error("Invalid path for saving this article, need to be on the book repository."));
                     path = that.fs.virtualPath(path);
