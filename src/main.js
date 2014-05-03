@@ -58,6 +58,12 @@ require([
                 }
             }));
             fileMenu.append(new gui.MenuItem({
+                label: 'Open Book on GitHub',
+                click: function () {
+                    that.openGitHubBook();
+                }
+            }));
+            fileMenu.append(new gui.MenuItem({
                 type: 'separator'
             }));
             fileMenu.append(new gui.MenuItem({
@@ -233,6 +239,20 @@ require([
             dialogs.folder()
             .then(function(_path) {
                 that.openPath(_path);
+            });
+        },
+
+        // Click to select a new local folder
+        openGitHubBook: function() {
+            var that = this;
+
+            dialogs.prompt(
+                'Enter a GitHub Repo',
+                'This should be in the form of "[REPO_USER]/[REPO_NAME]#[OPTIONAL_BRANCH]"',
+                'GitbookIO/javascript'
+            )
+            .then(function(_path) {
+                that.openPath('https://api.github.com/' + _path);
             });
         },
 
