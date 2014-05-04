@@ -202,6 +202,18 @@ define([
             });
         },
 
+        github: function(options) {
+            return Dialogs.open(null, {
+                dialog:     'github',
+                path:       options.path,
+                token:      options.token,
+                username:   options.username,
+                password:   options.password,
+                server:     options.server,
+                valueSelector: 'selectorMulti'
+            });
+        },
+
         error: function(err) {
             Dialogs.alert("Error:", err.message || err);
             return Q.reject(err);

@@ -9,11 +9,15 @@ define([
 
     var GitHubFs = hr.Class.extend({
         initialize: function(options) {
-            // TODO: Enable authentication
-            var gh = new Octokit();
+            var gh = new Octokit({
+                usePostInsteadOfPatch: true,
+                username: options.username,
+                password: options.password,
+                token: options.token
+            });
 
             // Parse the URL. Example: "https://api.github.com/GitbookIO/javascript#master"
-            var base = options.base.substring('https://api.github.com/'.length);
+            var base = options.path;
             var repoAndBranch = base.split('#');
             var repoUser = repoAndBranch[0].split('/')[0];
             var repoName = repoAndBranch[0].split('/')[1];

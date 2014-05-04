@@ -242,17 +242,39 @@ require([
             });
         },
 
+        openUrl: function(options) {
+            analytic.track("open");
+
+            var that = this;
+            var _fs = new Fs(options);
+
+            Book.valid(_fs)
+            .then(function() {
+                // Change current book
+                that.setBook(new Book({
+                    fs: _fs
+                }));
+
+                // Use as latest book
+                hr.Storage.set('github.path',       options.path);
+                hr.Storage.set('github.token',      options.token);
+                hr.Storage.set('github.username',   options.username);
+            }, dialogs.error);
+        },
+
+
         // Click to select a new local folder
         openGitHubBook: function() {
             var that = this;
 
-            dialogs.prompt(
-                'Enter a GitHub Repo',
-                'This should be in the form of "[REPO_USER]/[REPO_NAME]#[OPTIONAL_BRANCH]"',
-                'GitbookIO/javascript'
-            )
-            .then(function(_path) {
-                that.openPath('https://api.github.com/' + _path);
+            dialogs.github({
+                path:       hr.Storage.get('github.path') || 'GitbookIO/javascript',
+                token:      hr.Storage.get('github.token'),
+                username:   hr.Storage.get('github.username'),
+            })
+            .then(function(options) {
+                options.base = 'https://api.github.com' + '/' + options.path;
+                that.openUrl(options);
             });
         },
 
