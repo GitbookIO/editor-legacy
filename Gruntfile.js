@@ -55,8 +55,8 @@ module.exports = function (grunt) {
                 "shim": {
                     "main": {
                         deps: [
-                            'octokit',
                             'hr/dom',
+                            'octokit',
                             'vendors/bootstrap/carousel',
                             'vendors/bootstrap/dropdown',
                             'vendors/bootstrap/button',

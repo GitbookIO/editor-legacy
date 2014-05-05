@@ -61,8 +61,10 @@ define([
         exists: function(_path) {
             var deferred = Q.defer();
             this.read(_path)
-            .catch(function() { deferred.resolve(false); })
-            .then (function() { deferred.resolve(true); });
+            .then(
+                function() { deferred.resolve(true); },
+                function() { deferred.resolve(false); }
+            );
             return deferred.promise;
         },
 
