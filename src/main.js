@@ -7,9 +7,10 @@ require([
     "utils/dialogs",
     "utils/analytic",
     "core/update",
-    "core/fs",
+    "core/fs/local",
+    "core/fs/github",
     "views/book"
-], function(_, $, Q, hr, args, dialogs, analytic, update, Fs, Book) {
+], function(_, $, Q, hr, args, dialogs, analytic, update, LocalFs, GithubFs, Book) {
     var path = node.require("path");
     var wrench = node.require("wrench");
     var gui = node.gui;
@@ -35,7 +36,7 @@ require([
             var that = this;
 
             this.book = new Book({
-                fs: new Fs({
+                fs: new LocalFs({
                     base: this.getLatestBook()
                 })
             });
@@ -216,7 +217,7 @@ require([
             analytic.track("open");
 
             var that = this;
-            var _fs = new Fs({
+            var _fs = new LocalFs({
                 base: _path
             });
 
@@ -246,7 +247,7 @@ require([
             analytic.track("open");
 
             var that = this;
-            var _fs = new Fs(options);
+            var _fs = new GithubFs(options);
 
             Book.valid(_fs)
             .then(function() {
