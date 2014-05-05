@@ -1,7 +1,7 @@
 define([
     "hr/hr",
     "hr/promise",
-    "hr/utils"
+    "hr/utils",
 ], function(hr, Q, _) {
     var fs = node.require("fs");
     var path = node.require("path");

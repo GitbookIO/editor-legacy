@@ -1,0 +1,63 @@
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		    <h4 class="modal-title">Sign In to GitHub</h4>
+		</div>
+		<div class="modal-body">
+				<p>Enter a GitHub Repo (the part after <code>https://github.com/</code>):</p>
+				<input type="text" name="path" class="form-control" value="<%- options.path || "" %>" placeholder="[REPO_USER]/[REPO_NAME]#[OPTIONAL_BRANCH]" />
+				<hr />
+		    <p>To be able to save your changes, you must Log In to GitHub by providing an OAuth Token or a username and password.</p>
+
+
+				<div class="panel-group" id="github-auth-options">
+				  <div class="panel panel-default">
+				    <div class="panel-heading">
+				      <h4 class="panel-title">
+				        <a data-toggle="collapse" data-parent="#github-auth-options" href="#github-auth-token">
+				          Option 1: OAuth Token
+				        </a>
+				      </h4>
+				    </div>
+				    <div id="github-auth-token" class="panel-collapse collapse <%- !options.username && 'in' %>">
+				      <div class="panel-body">
+						    <p>You can create a new OAuth token by going to <code>https://github.com/settings/applications</code>.</p>
+						    <input type="text" name="token" class="form-control" value="<%- options.token || "" %>" placeholder="OAuth Token" />
+				      </div>
+				    </div>
+				  </div>
+				  <div class="panel panel-default">
+				    <div class="panel-heading">
+				      <h4 class="panel-title">
+				        <a data-toggle="collapse" data-parent="#github-auth-options" href="#github-auth-username">
+				          Option 2: Username and Password
+				        </a>
+				      </h4>
+				    </div>
+				    <div id="github-auth-username" class="panel-collapse collapse <%- options.username && 'in' %>">
+				      <div class="panel-body">
+						    <p>Provide a username and password. The password will not be stored so you will need to re-enter it.</p>
+						    <form class="form-inline">
+						    	<div class="form-group">
+							    	<input type="text" name="username" class="form-control" value="<%- options.username || "" %>" placeholder="Username" />
+							    </div>
+							    <div class="form-group">
+							    	<input type="password" name="password" class="form-control" value="<%- options.password || "" %>" placeholder="Password" />
+							    </div>
+								</form>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+		    <!--
+		    If you are using the enterprise version, specify the API URL (usually <code>https://api.github.com</code>)
+		    <input type="text" name="server" class="form-control" value="<%- options.server || "" %>" placeholder="API Server URL" />
+		  	-->
+
+		</div>
+		<div class="modal-footer">
+		    <button class="btn btn-default action-confirm">OK</button>
+		</div>
+	</div>
+</div>

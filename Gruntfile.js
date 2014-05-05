@@ -49,12 +49,14 @@ module.exports = function (grunt) {
 
                 // Modules paths
                 'paths': {
+                    "octokit": "../node_modules/octokit/octokit",
                     "ace": "vendors/ace/ace"
                 },
                 "shim": {
                     "main": {
                         deps: [
                             'hr/dom',
+                            'octokit',
                             'vendors/bootstrap/carousel',
                             'vendors/bootstrap/dropdown',
                             'vendors/bootstrap/button',

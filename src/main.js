@@ -7,9 +7,10 @@ require([
     "utils/dialogs",
     "utils/analytic",
     "core/update",
-    "core/fs",
+    "core/fs/local",
+    "core/fs/github",
     "views/book"
-], function(_, $, Q, hr, args, dialogs, analytic, update, Fs, Book) {
+], function(_, $, Q, hr, args, dialogs, analytic, update, LocalFs, GithubFs, Book) {
     var path = node.require("path");
     var wrench = node.require("wrench");
     var gui = node.gui;
@@ -35,7 +36,7 @@ require([
             var that = this;
 
             this.book = new Book({
-                fs: new Fs({
+                fs: new LocalFs({
                     base: this.getLatestBook()
                 })
             });
@@ -55,6 +56,12 @@ require([
                 label: 'Open Book',
                 click: function () {
                     that.openFolderSelection();
+                }
+            }));
+            fileMenu.append(new gui.MenuItem({
+                label: 'Open Book on GitHub',
+                click: function () {
+                    that.openGitHubBook();
                 }
             }));
             fileMenu.append(new gui.MenuItem({
@@ -210,7 +217,7 @@ require([
             analytic.track("open");
 
             var that = this;
-            var _fs = new Fs({
+            var _fs = new LocalFs({
                 base: _path
             });
 
@@ -233,6 +240,42 @@ require([
             dialogs.folder()
             .then(function(_path) {
                 that.openPath(_path);
+            });
+        },
+
+        openUrl: function(options) {
+            analytic.track("open");
+
+            var that = this;
+            var _fs = new GithubFs(options);
+
+            Book.valid(_fs)
+            .then(function() {
+                // Change current book
+                that.setBook(new Book({
+                    fs: _fs
+                }));
+
+                // Use as latest book
+                hr.Storage.set('github.path',       options.path);
+                hr.Storage.set('github.token',      options.token);
+                hr.Storage.set('github.username',   options.username);
+            }, dialogs.error);
+        },
+
+
+        // Click to select a new local folder
+        openGitHubBook: function() {
+            var that = this;
+
+            dialogs.github({
+                path:       hr.Storage.get('github.path') || 'GitbookIO/javascript',
+                token:      hr.Storage.get('github.token'),
+                username:   hr.Storage.get('github.username'),
+            })
+            .then(function(options) {
+                options.base = 'https://api.github.com' + '/' + options.path;
+                that.openUrl(options);
             });
         },
 

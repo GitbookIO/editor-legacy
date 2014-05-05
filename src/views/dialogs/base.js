@@ -6,7 +6,8 @@ define([
     "text!resources/templates/dialogs/confirm.html",
     "text!resources/templates/dialogs/fields.html",
     "text!resources/templates/dialogs/prompt.html",
-    "text!resources/templates/dialogs/select.html"
+    "text!resources/templates/dialogs/select.html",
+    "text!resources/templates/dialogs/github.html"
 ], function(_, $, hr) {
 
     var DialogView = hr.View.extend({
@@ -120,6 +121,17 @@ define([
          */
         selectorPrompt: function() {
             return this.$(".input").val();
+        },
+
+        /*
+         * Return the value of all named inputs.
+         */
+        selectorMulti: function() {
+            var obj = {};
+            this.$("input[name]").each(function(i, el) {
+                obj[el.name] = el.value;
+            });
+            return obj;
         },
 
         /*
