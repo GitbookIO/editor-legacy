@@ -13,13 +13,13 @@ define([
          */
         parseSummary: function(content) {
             var summary = parseSummary(content);
-            
+
             try {
                 this.reset(summary.chapters);
             } catch (e) {
                 console.error(e.stack);
             }
-            
+
         },
 
         /*
@@ -32,7 +32,8 @@ define([
             var _base = function(_article) {
                 var article = _article.toJSON();
                 if (article.path) {
-                    return "* ["+article.title+"]("+article.path+")";
+                    var unixFriendlyPath = article.path.replace(/\\/g, '/');
+                    return "* ["+article.title+"]("+unixFriendlyPath+")";
                 } else {
                     return "* "+article.title;
                 }
@@ -43,7 +44,7 @@ define([
 
                 // Articles
                 if (chapter.articles.size() > 0) {
-                    
+
                     chapter.articles.each(function(article) {
                         content = content+"    "+_base(article)+bl;
                     });
