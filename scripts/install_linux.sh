@@ -8,8 +8,14 @@ VENDOR=friendcode
 # User who is running the installer
 USER=$(whoami)
 
+# Home is bash shell define user home
+HOME=$HOME
+
+# DESKTOP is X Window define Desktop
+DESKTOP=`grep XDG_DESKTOP_DIR= $HOME/.config/user-dirs.dirs | sed s/XDG_DESKTOP_DIR=//g | sed s/\"//g `
+
 # Folder to install gitbook too
-GITBOOK_PATH=/home/$USER/.gitbook
+GITBOOK_PATH=$HOME/.gitbook
 
 # Folder with gitbook files to install
 SCRIPTPATH=$(cd -P -- "$(dirname -- "$0")" && pwd -P)
@@ -65,8 +71,8 @@ echo "Categories=Development;Utilities;TextEditor" >> $FILE_DESKTOP
 echo "Terminal=false" >> $FILE_DESKTOP
 
 echo "Granting the shortcut execution permissions"
-cp $FILE_DESKTOP /home/$(whoami)/Desktop
-chmod +x /home/$(whoami)/Desktop/$FILE_DESKTOP
+cp $FILE_DESKTOP $DESKTOP
+chmod +x $DESKTOP/$FILE_DESKTOP
 echo ""
 
 echo "Writing desktop menu item"
