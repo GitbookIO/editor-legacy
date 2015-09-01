@@ -71,7 +71,18 @@ define([
 
             // Fix image url
             this.$(".content img").each(function() {
-                $(this).attr("src", url.resolve(current, $(this).attr("src")));
+                var driverIndex = current.indexOf(':', 7); // start after 'file://'
+                if (/^win/.test(process.platform) && driverIndex >= 0) {
+                    var prefix = current.substring(0, driverIndex);
+                    var result = url.resolve(current.replace(/\\/g,'/'), $(this).attr("src"));
+                    if (result.substring(0, prefix.length) == prefix) {// starts with
+                        $(this).attr("src", prefix + ':/' + result.substring(prefix.length + 1));
+                    } else {
+                        $(this).attr("src", result);
+                    }
+                } else {
+                    $(this).attr("src", url.resolve(current, $(this).attr("src")));
+                }
             });
 
             // Render math expression
