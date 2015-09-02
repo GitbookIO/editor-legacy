@@ -4,7 +4,7 @@
 
 This application is a simple editor for writing books. It's available for Windows, Linux (32 and 64bits) and Mac.
 
-![Image](https://raw.github.com/GitbookIO/editor/master/preview.png)
+![Alt text](/preview.png?raw=true "Preview")
 
 ### How to install it?
 
