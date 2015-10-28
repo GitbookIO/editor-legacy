@@ -20,16 +20,17 @@
     "author": "Samy Pesse <samypesse@gmail.com>",
     "license": "Apache 2",
     "dependencies": {
-        "gitbook": "1.0.3",
+        "gitbook": "1.1.0",
         "send": "0.2.0",
         "mixpanel": "0.0.19",
         "wrench": "1.5.8",
         "semver": "2.2.1",
         "request": "2.27.0",
         "normall": "0.0.2",
-        "gitbook-api": "0.1.0",
+        "gitbook-api": "0.1.1",
         "npmi": "0.0.12",
-        "kramed": "0.4.2"
+        "kramed": "0.4.2",
+        "sanitize-html": "1.3.0"
     },
     "devDependencies": {
         "lodash": "2.4.1",

@@ -16,7 +16,7 @@
     <div class="content">
         <% _.each(sections, function(section) { %>
             <% if (section.type == "normal") { %>
-            <section id="<%- section.id %>"><%= section.content %></section>
+            <section id="<%- section.id %>"><%= sanitizeHtml(section.content) %></section>
             <% } else { %>
             <section id="<%- section.id %>" class="section-other"><%- section.type %></section>
             <% } %>

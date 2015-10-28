@@ -3,9 +3,10 @@ define([
     "hr/utils",
     "hr/promise",
     "hr/dom",
+    "utils/normalize",
     "core/server",
     "text!resources/templates/preview.html"
-], function(hr, _, Q, $, server, templateFile) {
+], function(hr, _, Q, $, normalize, server, templateFile) {
     var path = node.require("path");
     var url = node.require("url");
     var parse = node.require("gitbook").parse;
@@ -60,7 +61,8 @@ define([
         templateContext: function() {
             return {
                 autoScroll: this.autoScroll,
-                sections: this.sections
+                sections: this.sections,
+                sanitizeHtml: normalize.html
             };
         },
 
