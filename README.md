@@ -1,4 +1,4 @@
-# :warning: New version of the editor available at https://www.gitbook.com/editor
+# :warning: New version of the editor available at https://legacy.gitbook.com/editor
 
 # GitBook Editor
 
